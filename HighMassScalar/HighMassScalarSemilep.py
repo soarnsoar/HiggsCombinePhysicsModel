@@ -19,16 +19,18 @@ class HighMassScalar(PhysicsModel):
  
 
     def getYieldScale(self,bin,process): ##bin process in datacard
-        if  "ggHWW" in process:
-           
-            
+        ##print "self.options.mass=",self.options.mass :: get this value using -m
+        mass=self.options.mass
+        #if  "ggHWW" in process:            
+        if  "ggHWWlnuqq_M"+str(mass)+"_" in process:            
             if "_S_B_I" in process:
                 return 'ggH_sbi_func'
             elif "_S" in process:
                 return 'ggH_s_func'
             elif "_B" in process:
                 return 'ggH_b_func'
-            
+        if "VBFHToWWToLNuQQ" in process:
+            return 0
 
         return 1
         
