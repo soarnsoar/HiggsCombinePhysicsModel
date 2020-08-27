@@ -26,7 +26,7 @@ class DeepAK8SF(PhysicsModel):
 
         self.modelBuilder.factory_( 'expr::r_match_pass(\"@0*@1\", SF_eff,r_match_total)')
 
-        POI_LIST=['SF_eff']
+        POI_LIST=['SF_eff','r_match_total','r_notW_pass','r_notW_total']
 
         POIS=",".join(POI_LIST)
         self.modelBuilder.doSet("POI",POIS)
@@ -43,15 +43,15 @@ class DeepAK8SF(PhysicsModel):
 
         if 'DATA' in process:
             return 1
-        elif '_NotMatched': ##bkg
-            if 'Pass' in bin: ## bkg pass the WP
+        elif '_NOTmatched' in process :
+            if 'pass' in bin.lower(): ## bkg pass the WP
                 return 'r_notW_pass'
             else: ## bkg all
                 return 'r_notW_total'
         else:
-            if 'Pass' in bin : ## matched to W and pass WP
-                return 'r_matched_pass'
+            if 'pass' in bin.lower() : ## matched to W and pass WP
+                return 'r_match_pass'
             else:
-                return 'r_matched_total'
+                return 'r_match_total'
     
 EvalDeepAK8SF=DeepAK8SF()
